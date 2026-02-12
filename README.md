@@ -1,90 +1,128 @@
+
 # 🚀 Algorithmic Backtesting Engine
 
-A professional-grade Python backtesting framework designed for high-performance strategy testing and analysis.
+A **professional Python backtesting framework** for high-performance strategy testing, analysis, and simulation of real-world trading scenarios.
+
+---
 
 ## 🏗️ Core Architecture
-This engine uses an **Event-Driven Design**. Unlike simple vectorized backtesters, this simulates a real-world trading loops where each "bar" (price update) is processed sequentially. This prevents "look-ahead bias" and ensures your strategy only uses information available at that specific point in time.
 
-### Key Components:
-- **DataLoader**: Handles data ingestion from CSV or Yahoo Finance.
-- **Backtest Engine**: The "heart" that iterates through time, keeping track of cash and positions.
-- **Portfolio**: Manages your balance, calculates commission, and tracks open trades.
-- **Metrics**: Calculates complex risk metrics like Sharpe Ratio and Value at Risk (VaR).
+Built with an **Event-Driven Design**, this engine mimics real trading environments by processing each price update sequentially. This prevents **look-ahead bias** and ensures strategies only use information available at that point in time.
+
+### Key Components
+
+* **DataLoader** – Load historical data from CSV or Yahoo Finance.
+* **Backtest Engine** – The “heart” of the system, iterates through market data while tracking cash, positions, and trades.
+* **Portfolio** – Manages balances, calculates commissions, and monitors open positions.
+* **Metrics** – Computes advanced risk and performance indicators such as **Sharpe Ratio**, **Max Drawdown**, and **Value at Risk (VaR)**.
 
 ---
 
 ## 🛠️ Installation & Setup
 
-1. **Clone & Navigate**:
+1. **Clone the Repository**:
+
    ```bash
+   git clone <repo_url>
    cd backtesting_engine
    ```
 2. **Install Dependencies**:
+
    ```bash
    pip install -r requirements.txt
    ```
-3. **Run Dashboard**:
+3. **Run the Interactive Dashboard**:
+
    ```bash
    streamlit run dashboard.py
    ```
 
 ---
 
-## 📈 Trading Strategies Explained
+## 📈 Supported Trading Strategies
 
 ### 1. SMA Crossover (Trend Following)
-- **Logic**: Uses two Moving Averages (Fast & Slow).
-- **Buy Signal**: When the Fast SMA crosses **above** the Slow SMA (Golden Cross).
-- **Sell Signal**: When the Fast SMA crosses **below** the Slow SMA (Death Cross).
-- *Best for: Trending markets.*
+
+* **Logic**: Compares Fast & Slow Moving Averages.
+* **Buy Signal**: Fast SMA crosses **above** Slow SMA (Golden Cross).
+* **Sell Signal**: Fast SMA crosses **below** Slow SMA (Death Cross).
+* **Best For**: Trending markets.
 
 ### 2. RSI Mean Reversion (Momentum)
-- **Logic**: Measures the speed and change of price movements.
-- **Buy Signal**: When RSI falls below **30** (Oversold).
-- **Sell Signal**: When RSI rises above **70** (Overbought).
-- *Best for: Ranging/Sideways markets.*
 
-### 3. MACD (Momentum + Trend)
-- **Logic**: Uses the difference between two EMAs and a signal line.
-- **Buy Signal**: MACD line crosses above the Signal line.
-- **Sell Signal**: MACD line crosses below the Signal line.
+* **Logic**: Measures speed and change of price movements.
+* **Buy Signal**: RSI < 30 (Oversold).
+* **Sell Signal**: RSI > 70 (Overbought).
+* **Best For**: Ranging/Sideways markets.
+
+### 3. MACD (Trend + Momentum)
+
+* **Logic**: Uses difference between two EMAs and a signal line.
+* **Buy Signal**: MACD crosses **above** Signal line.
+* **Sell Signal**: MACD crosses **below** Signal line.
 
 ---
 
 ## 🤖 Machine Learning Integration
-Located in `ml/predictor.py`, we use **Scikit-Learn** to forecast price movements.
-- **Model**: Linear Regression.
-- **Features**: Uses the last 5 days of closing prices (Lags) to predict the 6th day.
-- **Usage**: You can train this model on historical data to filter out bad signals from your technical strategies.
+
+Located in `ml/predictor.py`, this module uses **Scikit-Learn** to forecast price movements.
+
+* **Model**: Linear Regression
+* **Features**: Last 5 days’ closing prices (lags) to predict the next day
+* **Usage**: Train on historical data to filter out low-probability trades and improve strategy accuracy.
 
 ---
 
-## 📊 Understanding Your Results
-| Metric | What it tells you |
-|--------|-------------------|
-| **Sharpe Ratio** | Is your profit worth the risk? (>1.0 is good). |
-| **Max Drawdown** | The biggest "dip" your account took from its peak. |
-| **Win Rate** | Percentage of trades that were profitable. |
-| **VaR (95%)** | The maximum expected loss on a single day with 95% confidence. |
+## 📊 Performance Metrics
+
+| Metric           | Meaning                                         | Ideal Value      |
+| ---------------- | ----------------------------------------------- | ---------------- |
+| **Sharpe Ratio** | Risk-adjusted returns                           | > 1.0            |
+| **Max Drawdown** | Largest peak-to-trough drop                     | Lower is better  |
+| **Win Rate**     | Percentage of profitable trades                 | Higher is better |
+| **VaR (95%)**    | Maximum expected daily loss with 95% confidence | Lower is safer   |
 
 ---
 
 ## 🚀 How to Run
-- **Interactive Dashboard**: `run_dashboard.bat` or `streamlit run dashboard.py`
-- **Full Test Suite**: `python test_all.py` (Tests all 9 modules at once)
-- **Comparison Mode**: `python main.py --compare`
-- **Real Market Data**: `python main.py --yahoo --symbol RELIANCE.NS`
+
+* **Interactive Dashboard**:
+
+  ```bash
+  streamlit run dashboard.py
+  ```
+* **Run Full Test Suite**:
+
+  ```bash
+  python test_all.py
+  ```
+* **Compare Strategies**:
+
+  ```bash
+  python main.py --compare
+  ```
+* **Backtest with Yahoo Finance Data**:
+
+  ```bash
+  python main.py --yahoo --symbol RELIANCE.NS
+  ```
 
 ---
 
 ## 📁 Project Structure
-- `data/`: Ingestion logic.
-- `engine/`: Execution logic.
-- `strategies/`: Indicator logic.
-- `visualization/`: Plotting (Plotly/Matplotlib).
-- `ml/`: Predictive logic.
+
+```
+backtesting_engine/
+├─ data/           # Data ingestion
+├─ engine/         # Backtesting core logic
+├─ strategies/     # Technical strategy implementations
+├─ visualization/  # Plotting (Plotly/Matplotlib)
+├─ ml/             # Predictive ML models
+├─ dashboard.py    # Interactive dashboard
+├─ main.py         # Run backtests
+```
 
 ---
 
-> [!IMPORTANT]
-> **Disclaimer**: This is for educational use. Trading involves risk. Backtesting results do not guarantee future performance.
+
+
